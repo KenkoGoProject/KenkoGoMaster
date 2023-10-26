@@ -1,0 +1,2 @@
+isort>=5.12.0,<5.13.0       # import sort
+pip-tools>=7.3.0,<7.4.0     # requirements.txt management
