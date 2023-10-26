@@ -1,8 +1,7 @@
 import logging
-from logging import Logger, Handler
 import sys
 from datetime import date
-from logging import FileHandler
+from logging import FileHandler, Handler, Logger
 from pathlib import Path
 
 from rich.logging import RichHandler

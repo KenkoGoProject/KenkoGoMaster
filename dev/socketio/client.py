@@ -5,18 +5,30 @@ sio: Client = Client()
 namespace: str = '/client'
 
 
-@sio.on('connect', namespace=namespace)
+# 封装sio.on装饰器，固定namespace
+def on(event: str):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        sio.on(event, namespace=namespace)(wrapper)
+        return wrapper
+
+    return decorator
+
+
+@on('connect')
 def connect():
     print('connection established')
-    sio.emit('$client_msg', 'thanks', namespace=namespace)
+    sio.emit('auth', 'thanks', namespace=namespace)
 
 
-@sio.on('$server_msg')
-def my_message(data: any):
-    print(f'message received: {data}')
+@on('auth')
+def recv_auth(data: bool):
+    print(f'auth result: {data}')
 
 
-@sio.on('disconnect')
+@on('disconnect')
 def disconnect():
     print('disconnected from server')
 

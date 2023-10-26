@@ -1,10 +1,12 @@
-from fastapi import FastAPI, Request, Response
 from contextlib import asynccontextmanager
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi_socketio import SocketManager
 
-from module.client_event import event_connect, event_disconnect
+from fastapi import FastAPI, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 from module.logger import log
+from module.socket_manager import SocketManager
 
 
 @asynccontextmanager
@@ -39,6 +41,4 @@ async def log_middleware(request: Request, call_next):
     log.debug(f'{response.status_code}')
     return response
 
-socket_manager = SocketManager(app=app, mount_location='')  # SocketIO
-socket_manager.on('connect', namespace='/client', handler=event_connect)  # 连接事件
-socket_manager.on('disconnect', namespace='/client', handler=event_disconnect)  # 断开连接事件
+socket_manager = SocketManager(app=app)  # SocketIO
