@@ -1,4 +1,4 @@
-from module.http import app
+from module.server import app
 
 
 if __name__ == '__main__':

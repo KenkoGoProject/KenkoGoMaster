@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade -r /work/requirements.txt \
 COPY . /app
 WORKDIR /app
 RUN rm -rf ./dev ./log .gitignore ./.git requirements.txt
-CMD uvicorn module.http:app --host 0.0.0.0 --port 17680 --log-level critical
+CMD uvicorn module.server:app --host 0.0.0.0 --port 17680 --log-level critical
