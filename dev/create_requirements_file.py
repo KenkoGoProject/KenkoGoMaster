@@ -15,11 +15,12 @@ if __name__ == '__main__':
                                    '--output-file', f'{output_file}.txt',
                                    '--annotation-style=line'], cwd=dev_dir)
         with contextlib.suppress(FileNotFoundError):
-            with open(f'{i}.txt', 'r', encoding='utf-8') as f:
+            with open(f'{output_file}.txt', 'r') as f:
                 lines = f.readlines()
-            with open(f'{i}.txt', 'w', encoding='utf-8') as f:
+            with open(f'{output_file}.txt', 'w') as f:
                 for line in lines:
                     if line.startswith('--index-url'):
+                        f.write('--index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple\n')
                         continue
                     f.write(line)
 
